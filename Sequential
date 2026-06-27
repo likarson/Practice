@@ -1,0 +1,65 @@
+#Build a Sequential Neural Network
+
+import numpy as np
+import pandas as pd
+import torch
+import torch.nn as nn
+
+# set a random seed - do not modify
+torch.manual_seed(42)
+
+
+model = nn.Sequential(
+    nn.Linear(3,8),
+    nn.ReLU(),
+    nn.Linear(8,1)
+)
+
+# show model details
+model
+
+# set a random seed - do not modify
+torch.manual_seed(42)
+
+## YOUR SOLUTION HERE ##
+model = nn.Sequential(
+    nn.Linear(3,8),
+    nn.ReLU(),
+    nn.Linear(8,4),
+    nn.Sigmoid(),
+    nn.Linear(4,1)
+)
+
+# show model details
+model
+
+# load pandas DataFrame
+apartments_df = pd.read_csv("streeteasy.csv")
+
+# create a numpy array of the numeric columns
+apartments_numpy = apartments_df[['size_sqft', 'bedrooms', 'building_age_yrs']].values
+
+# convert to an input tensor
+X = torch.tensor(apartments_numpy,dtype=torch.float32)
+
+# preview the first five apartments
+X[:5]
+# set a random seed - do not modify
+torch.manual_seed(42)
+
+# define the neural network
+model = nn.Sequential(
+    nn.Linear(3,16),
+    nn.ReLU(),
+    nn.Linear(16,8),
+    nn.ReLU(),
+    nn.Linear(8,4),
+    nn.ReLU(),
+    nn.Linear(4,1)
+)
+
+## YOUR SOLUTION HERE ##
+predicted_rent = model(X)
+
+# show output
+predicted_rent[:5]
